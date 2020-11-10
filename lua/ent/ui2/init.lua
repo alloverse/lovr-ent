@@ -202,8 +202,9 @@ function RouteMouseEnt:onLoad()
 	end
 end
 
+ui2.doRouteMouse = true
 function ui2.routeMouse()
-	if not routeMouseEnt then
+	if not routeMouseEnt and ui2.doRouteMouse then
 		if not lovr.mouse then lovr.mouse = require 'lib.lovr-mouse' end
 		routeMouseEnt = RouteMouseEnt()
 		routeMouseEnt:insert(ent.root) -- FIXME: Better routing?

@@ -55,10 +55,14 @@ function Ent:route(key, ...)
 	if self[key] then
 		result = self[key](self, ...)
 	end
-	if result ~= route_terminate then
+	if result ~= route_terminate and self.kids then
 		for k,v in pairs(self.kids) do
 			v:route(key, ...)
 		end
+	end
+	local postKey = "after_"..key
+	if self[postKey] then
+		self[postKey](self, ...)
 	end
 end
 
@@ -137,16 +141,20 @@ function OrderedEnt:unregister(child) -- TODO: Remove maybe?
 	Ent.unregister(self, child)
 end
 
-function OrderedEnt:route(key, payload) -- TODO: Repetitive with Ent:route()?
+function OrderedEnt:route(key, ...) -- TODO: Repetitive with Ent:route()?
 	local result
 	if self[key] then
-		result = self[key](self, payload)
+		result = self[key](self, ...)
 	end
 	if result ~= route_terminate then
 		for _,id in ipairs(self.kidOrder) do
 			local v = self.kids[id]
-			if v then v:route(key, payload) end
+			if v then v:route(key, ...) end
 		end
+	end
+	local postKey = "after_"..key
+	if self[postKey] then
+		self[postKey](self, ...)
 	end
 end
 
