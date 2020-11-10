@@ -13,8 +13,10 @@ local function fontHeight()
 	return flat.font:getHeight()*flat.fontscale
 end
 
+ui2.fontHeight = fontHeight
 ui2.textmargin = 0.05 -- Margin around text. Tunable 
 ui2.screenmargin = (fontHeight() + ui2.textmargin*2)/2 -- Space between edge of screen and buttons. Tunable
+ui2.flat = flat
 
 local margin = ui2.textmargin
 
