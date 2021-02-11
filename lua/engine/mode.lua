@@ -21,6 +21,8 @@ function uiMode()
 		ent.mode = "ui"
 		lovr.graphics.setDepthTest(nil) -- TODO: Test if necessary
 		lovr.graphics.origin()
+		lovr.graphics.setViewPose(1)
+		lovr.graphics.setViewPose(2)
 		lovr.graphics.setProjection(1, flat.matrix) -- Switch to screen space coordinates
 		lovr.graphics.setShader()
 	end
