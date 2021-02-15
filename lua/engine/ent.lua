@@ -49,6 +49,28 @@ function Ent:_init(spec)
 	ent_id_generator = ent_id_generator + 1
 end
 
+function Ent:print(x)
+	local int = x
+	local name = self.__name or tostring(self)
+	print(int..name)
+	if result ~= route_terminate and self.kids then
+		for k,v in pairs(self.kids) do
+			v:print(x.."  ")
+		end
+	end
+
+	return route_terminate
+end
+
+function Ent:printTree(fromRoot)
+	local root = self
+	if fromRoot then 
+		while root.parent do root = root.parent end
+	end
+	print("Current ENT tree")
+	root:route("print", "")
+end
+
 -- Call with a function name and an argument and it will be called first on this object, then all its children
 function Ent:route(key, ...)
 	local result
