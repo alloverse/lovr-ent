@@ -10,7 +10,8 @@ function Floor:_init(spec)
 end
 
 function Floor:onLoad()
-	local data = lovr.data.newTextureData(self.floorPixels, self.floorPixels, "rgba")
+	local constructor = lovr.data.newImage or lovr.data.newTextureData
+	local data = constructor(self.floorPixels, self.floorPixels, "rgba")
 	for x=0,(self.floorPixels-1) do
 		for y=0,(self.floorPixels-1) do
 			local bright = (x+y)%2 == 0 and 0.5 or 0.75
